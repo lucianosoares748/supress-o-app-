@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Relatório supressão</h1>
+    <form action="{{ url_for('submit') }}" method="POST">
+      <fieldset>
+        <div class="form-group">
+          <label for="data">Data:</label>
+          <input type="date" name="data" id="data" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fazenda">Fazenda:</label>
+          <select name="fazenda" id="fazenda" required>
+            <option selected disabled value>Selecione</option>
+            <option value="Maria Isabel">Maria Isabel</option>
+            <option value="Berrante II">Berrante II</option>
+            <option value="São João II">São João II</option>
+            <option value="Paredão - Gleba B">Paredão - Gleba B</option>
+            <option value="Paredão">Paredão</option>
+            <option value="Mimoso">Mimoso</option>
+            <option value="Terra Nova">Terra Nova</option>
+            <option value="Dois Corações">Dois Corações</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="talhao">Talhão:</label>
+          <select name="talhao" id="talhao" required>
+            <option selected value>1</option>
+            <option selected value>2</option>
+            <option selected value>3</option>
+            <option selected value>4</option>
+            <option selected value>5</option>
+            <option selected value>6</option>
+            <option selected value>7</option>
+            <option selected value>8</option>
+            <option selected value>9</option>
+            <option selected value>10</option>
+            <option selected value>11</option>
+            <option selected disabled value>Selecione</option>
+            <!-- Adicione as opções de talhões conforme necessário -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Turno:</label>
+          <label>
+            <input type="radio" name="turno" value="A" required> A
+          </label>
+          <label>
+            <input type="radio" name="turno" value="B"> B
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Status:</label>
+          <label>
+            <input type="radio" name="status" value="Em andamento" required> Em andamento
+          </label>
+          <label>
+            <input type="radio" name="status" value="Finalizado"> Finalizado
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="maquina">Máquina:</label>
+          <select name="maquina" id="maquina" required>
+            <option selected disabled value>Selecione</option>
+            <option value="ES-01">ES-01</option>
+            <option value="ES-02">ES-02</option>
+            <option value="ES-03">ES-03</option>
+            <option value="ES-04">ES-04</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="operador">Operador:</label>
+          <select name="operador" id="operador" required>
+            <option selected disabled value>Selecione</option>
+            <option value="Calebe Maico">Calebe Maico</option>
+            <option value="Eguinaldo de Souza Lopes">Eguinaldo de Souza Lopes</option>
+            <option value="Jones William Simeão">Jones William Simeão</option>
+            <option value="Josnei Teixeira Brunetti">Josnei Teixeira Brunetti</option>
+            <option value="Luciano Soares">Luciano Soares</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hinicial">Horímetro inicial:</label>
+          <input type="number" id="hinicial" name="horimetro_inicial" step="0.1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hfinal">Horímetro final:</label>
+          <input type="number" id="hfinal" name="horimetro_final" step="0.1" required>
+        </div>
+
+        <div class="form-group">
+          <button type="button" id="calcular" onclick="calcularHoras()">Calcular Horas Trabalhadas</button>
+          <input type="number" id="horas_trabalhadas" name="horas_trabalhadas" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="producao_ha">Produção (HA):</label>
+          <input type="number" id="producao_ha" name="producao_ha" placeholder="Produção por hectare" required>
+        </div>
+
+        <div class="form-group">
+          <label for="equipe_transporte">Equipe em Transporte:</label>
+          <input type="text" id="equipe_transporte" name="equipe_transporte" placeholder="Nome(s) da equipe em transporte" >
+        </div>
+
+        <div class="form-group">
+          <label for="dds_cafe">DDS/Café:</label>
+          <input type="text" id="dds_cafe" name="dds_cafe" placeholder="Digite DDS ou Café" >
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="form-group">
+          <label for="manutencao">Inspensão diária:</label>
+          <select name="manutencao" id="manutencao" >
+            <option selected disabled value>Selecione</option>
+            <option value="Afiação de Facas">Afiação de Facas</option>
+            <option value="Substituição de facas">Substituição de facas</option>
+            <option value="Perca de potência">Perca de potência</option>
+            <option value="Substituição de rolamento">Substituição de rolamento</option>
+            <option value="Substituição de polia">Substituição de polia</option>
+            <option value="Substituição de correia do cabeçote">Substituição de correia do cabeçote</option>
+            <option value="Retirada de arame do rolo">Retirada de arame do rolo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="manutencao_hinicial">Horímetro inicial (Manutenção):</label>
+          <input type="number" id="manutencao_hinicial" name="manutencao_horimetro_inicial" >
+        </div>
+
+        <div class="form-group">
+          <label for="manutencao_hfinal">Horímetro final (Manutenção):</label>
+          <input type="number" id="manutencao_hfinal" name="manutencao_horimetro_final" >
+        </div>
+
+        <div class="form-group">
+          <label for="tempo_manutencao">Tempo em Manutenção:</label>
+          <input type="number" id="tempo_manutencao" name="tempo_manutencao" >
+        </div>
+
+        <div class="form-group">
+          <label for="transporte_pracha">Em Transporte Pracha:</label>
+          <input type="text" id="transporte_pracha" name="transporte_pracha" placeholder="Equipe em transporte na pracha" >
+        </div>
+      </fieldset>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
