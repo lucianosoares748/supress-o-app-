@@ -11,11 +11,12 @@
     <h1>Relatório supressão</h1>
     <form action="{{ url_for('submit') }}" method="POST">
       <fieldset>
+        <!-----------------------------------------------------------BOX FAZENDA ------------------------------------------------------->
         <div class="form-group">
           <label for="data">Data:</label>
           <input type="date" name="data" id="data" required>
-        </div>
-
+        </div>       
+        <!-----------------------------------------------------------BOX FAZENDA ------------------------------------------------------->
         <div class="form-group">
           <label for="fazenda">Fazenda:</label>
           <select name="fazenda" id="fazenda" required>
@@ -30,7 +31,7 @@
             <option value="Dois Corações">Dois Corações</option>
           </select>
         </div>
-
+        <!-----------------------------------------------------------BOX TALHAO ------------------------------------------------------->
         <div class="form-group">
           <label for="talhao">Talhão:</label>
           <select name="talhao" id="talhao" required>
@@ -46,10 +47,9 @@
             <option selected value>10</option>
             <option selected value>11</option>
             <option selected disabled value>Selecione</option>
-            <!-- Adicione as opções de talhões conforme necessário -->
           </select>
         </div>
-
+        <!-----------------------------------------------------------BOX TURNO ------------------------------------------------------->
         <div class="form-group">
           <label>Turno:</label>
           <label>
@@ -59,7 +59,7 @@
             <input type="radio" name="turno" value="B"> B
           </label>
         </div>
-
+        <!-----------------------------------------------------------BOX STATUS ------------------------------------------------------->
         <div class="form-group">
           <label>Status:</label>
           <label>
@@ -69,6 +69,7 @@
             <input type="radio" name="status" value="Finalizado"> Finalizado
           </label>
         </div>
+        <!-----------------------------------------------------------BOX MAQUINA ------------------------------------------------------->
 
         <div class="form-group">
           <label for="maquina">Máquina:</label>
@@ -80,7 +81,7 @@
             <option value="ES-04">ES-04</option>
           </select>
         </div>
-
+        <!-----------------------------------------------------------BOX OPERADOR ------------------------------------------------------->
         <div class="form-group">
           <label for="operador">Operador:</label>
           <select name="operador" id="operador" required>
@@ -92,68 +93,81 @@
             <option value="Luciano Soares">Luciano Soares</option>
           </select>
         </div>
-
+        <!-----------------------------------------------------------BOX INICIAL TRABALHO ------------------------------------------------------->
         <div class="form-group">
           <label for="hinicial">Horímetro inicial:</label>
           <input type="number" id="hinicial" name="horimetro_inicial" step="0.1" required>
         </div>
-
+        <!-----------------------------------------------------------BOX FINAL TRABALHO ------------------------------------------------------->
         <div class="form-group">
           <label for="hfinal">Horímetro final:</label>
           <input type="number" id="hfinal" name="horimetro_final" step="0.1" required>
         </div>
-
+        <!----------------------------------------------------------- BOTAO DE CALCULAR HORAS TRABALHADAS ------------------------------------------------------->
         <div class="form-group">
           <button type="button" id="calcular" onclick="calcularHoras()">Calcular Horas Trabalhadas</button>
-          <input type="number" id="horas_trabalhadas" name="horas_trabalhadas" readonly>
+          <input type="number" id="horas_trabalhadas" name="horas_trabalhadas" readonly><!--aqui e onde aparecem as horas trabalhadas-->
         </div>
-
+        <!-----------------------------------------------------------BOX INICIAL TRABALHO ------------------------------------------------------->
         <div class="form-group">
           <label for="producao_ha">Produção (HA):</label>
           <input type="number" id="producao_ha" name="producao_ha" placeholder="Produção por hectare" required>
         </div>
-
+        <!-----------------------------------------------------------BOX EQUIPE EM TRANSPORTE ------------------------------------------------------->
         <div class="form-group">
           <label for="equipe_transporte">Equipe em Transporte:</label>
           <input type="text" id="equipe_transporte" name="equipe_transporte" placeholder="Nome(s) da equipe em transporte" >
         </div>
-
+        <!-----------------------------------------------------------BOX DDS/CAFE ------------------------------------------------------->
         <div class="form-group">
           <label for="dds_cafe">DDS/Café:</label>
           <input type="text" id="dds_cafe" name="dds_cafe" placeholder="Digite DDS ou Café" >
         </div>
       </fieldset>
-
-      <fieldset>
-        <div class="form-group">
-          <label for="manutencao">Inspensão diária:</label>
-          <select name="manutencao" id="manutencao" >
-            <option selected disabled value>Selecione</option>
-            <option value="Afiação de Facas">Afiação de Facas</option>
-            <option value="Substituição de facas">Substituição de facas</option>
-            <option value="Perca de potência">Perca de potência</option>
-            <option value="Substituição de rolamento">Substituição de rolamento</option>
-            <option value="Substituição de polia">Substituição de polia</option>
-            <option value="Substituição de correia do cabeçote">Substituição de correia do cabeçote</option>
-            <option value="Retirada de arame do rolo">Retirada de arame do rolo</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="manutencao_hinicial">Horímetro inicial (Manutenção):</label>
-          <input type="number" id="manutencao_hinicial" name="manutencao_horimetro_inicial" >
-        </div>
-
-        <div class="form-group">
-          <label for="manutencao_hfinal">Horímetro final (Manutenção):</label>
-          <input type="number" id="manutencao_hfinal" name="manutencao_horimetro_final" >
-        </div>
-
-        <div class="form-group">
-          <label for="tempo_manutencao">Tempo em Manutenção:</label>
-          <input type="number" id="tempo_manutencao" name="tempo_manutencao" >
-        </div>
-
+        <!-----------------------------------------------------------BOX Manutencao ------------------------------------------------------->
+        <fieldset id="blocos-manutencao">
+          
+          
+          <!-- Bloco de Manutenção Base -->
+          <div class="bloco-manutencao">
+            <div class="form-group">
+              <label>Inspensões diárias</label>
+              <select name="manutencao" class="manutencao" required>
+                <option selected disabled value>Selecione</option>
+                <option value="Afiação de Facas">Afiação de Facas</option>
+                <option value="Substituição de facas">Substituição de facas</option>
+                <option value="Perca de potência">Perca de potência</option>
+                <option value="Substituição de rolamento frontal">Substituição de rolamento frontal</option>
+                <option value="Substituição de rolamento traseiro">Substituição de rolamento traseiro</option>
+                <option value="Substituição de polia">Substituição de polia</option>
+                <option value="Substituição de correia do cabeçote">Substituição de correia do cabeçote</option>
+                <option value="Retirada de arame do rolo">Retirada de arame do rolo</option>
+                <option value="Trava aranha">Trava aranha</option>
+                <option value="Manutencao preventiva">Manutencao preventiva</option>
+                <option value="Troca de correia do cabecote">Troca de correia do cabecote</option>
+              </select>
+            </div>
+        
+            <div class="form-group">
+              <label>Horário inicial (Manutenção):</label>
+              <input type="time" name="manutencao_horimetro_inicial" class="horario-inicial">
+            </div>
+        
+            <div class="form-group">
+              <label>Horário final (Manutenção):</label>
+              <input type="time" name="manutencao_horimetro_final" class="horario-final">
+            </div>
+        
+            <div class="form-group">
+              <button type="button" onclick="calcularTempoManutencao(this)">Calcular Tempo em Manutenção</button>
+              <input type="text" name="tempo_manutencao" class="tempo-manutencao" readonly>
+            </div>
+          </div>
+        </fieldset>
+        
+        <button type="button" onclick="adicionarBlocoManutencao()">Adicionar Parada de Manutenção</button>
+        
+        <!-----------------------------------------------------------TRANSPORTE ------------------------------------------------------->
         <div class="form-group">
           <label for="transporte_pracha">Em Transporte Pracha:</label>
           <input type="text" id="transporte_pracha" name="transporte_pracha" placeholder="Equipe em transporte na pracha" >

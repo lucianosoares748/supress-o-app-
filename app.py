@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -23,33 +23,59 @@ def submit():
         producao_ha = request.form.get('producao_ha')
         equipe_transporte = request.form.get('equipe_transporte')
         dds_cafe = request.form.get('dds_cafe')
-        manutencao = request.form.get('manutencao')
-        hinicial_manutencao = request.form.get('manutencao_horimetro_inicial')
-        hfinal_manutencao = request.form.get('manutencao_horimetro_final')
-        tempo_manutencao = request.form.get('tempo_manutencao')
         transporte_pracha = request.form.get('transporte_pracha')
+
+        # Captura múltiplas entradas de manutenção
+        manutencoes = []
+        index = 0
+        while True:
+            manutencao = request.form.get(f'manutencao_{index}')
+            if manutencao:
+                hinicial_manutencao = request.form.get(f'manutencao_horimetro_inicial_{index}')
+                hfinal_manutencao = request.form.get(f'manutencao_horimetro_final_{index}')
+                tempo_manutencao = request.form.get(f'tempo_manutencao_{index}')
+                manutencoes.append({
+                    "tipo": manutencao,
+                    "horario_inicial": hinicial_manutencao,
+                    "horario_final": hfinal_manutencao,
+                    "tempo": tempo_manutencao
+                })
+                index += 1  # Incrementa o índice para capturar a próxima manutenção
+            else:
+                break  # Interrompe o loop quando não há mais entradas de manutenção
 
         # Formatação do relatório em string
         relatorio = f"""
         DATA: {data}
         FAZENDA: {fazenda}
-        TALHAO: {talhao}
+        TALHÃO: {talhao}
         TURNO: {turno}
         STATUS: {status}
-        Máquina: {maquina}
-        Operador: {operador}
-        Horímetro Inicial: {hinicial}
-        Horímetro Final: {hfinal}
-        Horas Trabalhadas: {horas_trabalhadas}
-        Produção Ha: {producao_ha}
-        Equipe em Transporte: {equipe_transporte}
-        DDS/Café: {dds_cafe}
-        Inspensão Diária: {manutencao} - Início: {hinicial_manutencao}, Final: {hfinal_manutencao}
-        Tempo de Manutenção: {tempo_manutencao}
-        Em Transporte de Prancha: {transporte_pracha}
+        MÁQUINA: {maquina}
+        OPERADOR: {operador}
+        HORÍMETRO INICIAL: {hinicial}
+        HORÍMETRO FINAL: {hfinal}
+        HORAS TRABALHADAS: {horas_trabalhadas}
+        PRODUÇÃO HA: {producao_ha}
+        EQUIPE EM TRANSPORTE: {equipe_transporte}
+        DDS/CAFÉ: {dds_cafe}
         """
 
-        # Enviar relatório para o template `report.html`
+        # Adiciona o bloco de inspeção diária ao relatório
+        relatorio += "\nINSPEÇÃO DIÁRIA:\n"
+        for i, m in enumerate(manutencoes):
+            relatorio += f"""
+            MANUTENÇÃO {i+1}:
+            - Tipo: {m['tipo']}
+            - Horário Inicial: {m['horario_inicial']}
+            - Horário Final: {m['horario_final']}
+            - Tempo: {m['tempo']}
+            """
+
+        # Finaliza o relatório com o transporte de prancha
+        relatorio += f"\nEM TRANSPORTE DE PRANCHA: {transporte_pracha}\n"
+
+        # Envia o relatório para o template `report.html`
         return render_template('report.html', relatorio=relatorio)
 
 if __name__ == '__main__':
