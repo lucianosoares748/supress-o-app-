@@ -29,24 +29,25 @@
             <option value="Mimoso">Mimoso</option>
             <option value="Terra Nova">Terra Nova</option>
             <option value="Dois Corações">Dois Corações</option>
+            <option value="Santa Marte II">Santa Marte II</option>
           </select>
         </div>
         <!-----------------------------------------------------------BOX TALHAO ------------------------------------------------------->
         <div class="form-group">
           <label for="talhao">Talhão:</label>
           <select name="talhao" id="talhao" required>
-            <option selected value>1</option>
-            <option selected value>2</option>
-            <option selected value>3</option>
-            <option selected value>4</option>
-            <option selected value>5</option>
-            <option selected value>6</option>
-            <option selected value>7</option>
-            <option selected value>8</option>
-            <option selected value>9</option>
-            <option selected value>10</option>
-            <option selected value>11</option>
             <option selected disabled value>Selecione</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
           </select>
         </div>
         <!-----------------------------------------------------------BOX TURNO ------------------------------------------------------->
@@ -126,13 +127,11 @@
       </fieldset>
         <!-----------------------------------------------------------BOX Manutencao ------------------------------------------------------->
         <fieldset id="blocos-manutencao">
-          
-          
-          <!-- Bloco de Manutenção Base -->
+          <!-- Bloco de Manutenção -->
           <div class="bloco-manutencao">
             <div class="form-group">
               <label>Inspensões diárias</label>
-              <select name="manutencao" class="manutencao" required>
+              <select name="manutencao_0" class="manutencao" required>
                 <option selected disabled value>Selecione</option>
                 <option value="Afiação de Facas">Afiação de Facas</option>
                 <option value="Substituição de facas">Substituição de facas</option>
@@ -145,25 +144,63 @@
                 <option value="Trava aranha">Trava aranha</option>
                 <option value="Manutencao preventiva">Manutencao preventiva</option>
                 <option value="Troca de correia do cabecote">Troca de correia do cabecote</option>
+                <!-- outros itens aqui -->
               </select>
             </div>
         
             <div class="form-group">
               <label>Horário inicial (Manutenção):</label>
-              <input type="time" name="manutencao_horimetro_inicial" class="horario-inicial">
+              <input type="time" name="manutencao_horimetro_inicial_0" class="horario-inicial">
             </div>
         
             <div class="form-group">
               <label>Horário final (Manutenção):</label>
-              <input type="time" name="manutencao_horimetro_final" class="horario-final">
+              <input type="time" name="manutencao_horimetro_final_0" class="horario-final">
             </div>
         
             <div class="form-group">
               <button type="button" onclick="calcularTempoManutencao(this)">Calcular Tempo em Manutenção</button>
-              <input type="text" name="tempo_manutencao" class="tempo-manutencao" readonly>
+              <input type="text" name="tempo_manutencao_0" class="tempo-manutencao" readonly>
             </div>
           </div>
         </fieldset>
+        
+        
+        
+        <script>
+        
+        function adicionarBlocoManutencao() {
+            const blocoManutencao = document.createElement('div');
+            blocoManutencao.classList.add('bloco-manutencao');
+            
+            blocoManutencao.innerHTML = `
+                <div class="form-group">
+                  <label for="manutencao_${manutencaoIndex}">Tipo de Manutenção:</label>
+                  <select name="manutencao_${manutencaoIndex}" class="manutencao" required>
+                    <option selected disabled value>Selecione</option>
+                    <option value="Afiação de Facas">Afiação de Facas</option>
+                    <!-- outros itens -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Horário Inicial (Manutenção):</label>
+                  <input type="time" name="manutencao_horimetro_inicial_${manutencaoIndex}" class="horario-inicial">
+                </div>
+                <div class="form-group">
+                  <label>Horário Final (Manutenção):</label>
+                  <input type="time" name="manutencao_horimetro_final_${manutencaoIndex}" class="horario-final">
+                </div>
+                <div class="form-group">
+                  <button type="button" onclick="calcularTempoManutencao(this)">Calcular Tempo em Manutenção</button>
+                  <input type="text" name="tempo_manutencao_${manutencaoIndex}" class="tempo-manutencao" readonly>
+                </div>
+            `;
+        
+            document.getElementById('blocos-manutencao').appendChild(blocoManutencao);
+            manutencaoIndex++;
+        }
+        </script>
+        
         
         <button type="button" onclick="adicionarBlocoManutencao()">Adicionar Parada de Manutenção</button>
         

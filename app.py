@@ -46,19 +46,19 @@ def submit():
 
         # Formatação do relatório em string
         relatorio = f"""
-        DATA: {data}
-        FAZENDA: {fazenda}
-        TALHÃO: {talhao}
-        TURNO: {turno}
-        STATUS: {status}
-        MÁQUINA: {maquina}
-        OPERADOR: {operador}
-        HORÍMETRO INICIAL: {hinicial}
-        HORÍMETRO FINAL: {hfinal}
-        HORAS TRABALHADAS: {horas_trabalhadas}
-        PRODUÇÃO HA: {producao_ha}
-        EQUIPE EM TRANSPORTE: {equipe_transporte}
-        DDS/CAFÉ: {dds_cafe}
+        *DATA:* {data}
+        *FAZENDA:* {fazenda}
+        *TALHÃO:* {talhao}
+        *TURNO:* {turno}
+        *STATUS:* {status}
+        *MÁQUINA:* {maquina}
+        *OPERADOR:* {operador}
+        *HORÍMETRO INICIAL:* {hinicial}
+        *HORÍMETRO FINAL:* {hfinal}
+        *HORAS TRABALHADAS:* {horas_trabalhadas}
+        *PRODUÇÃO HA:* {producao_ha}
+        *EQUIPE EM TRANSPORTE:* {equipe_transporte}
+        *DDS/CAFÉ:* {dds_cafe}
         """
 
         # Adiciona o bloco de inspeção diária ao relatório
