@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request
+from datetime import datetime
 
+# Cria a aplicação Flask
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Renderiza o formulário
+    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
     if request.method == 'POST':
-        # Pega os dados do formulário
-        data = request.form.get('data')
+        # Formata a data para DD/MM/YYYY
+        data_raw = request.form.get('data')
+        data_formatada = datetime.strptime(data_raw, "%Y-%m-%d").strftime("%d/%m/%Y")
+
         fazenda = request.form.get('fazenda')
         talhao = request.form.get('talhao')
         turno = request.form.get('turno')
@@ -40,28 +44,27 @@ def submit():
                     "horario_final": hfinal_manutencao,
                     "tempo": tempo_manutencao
                 })
-                index += 1  # Incrementa o índice para capturar a próxima manutenção
+                index += 1
             else:
-                break  # Interrompe o loop quando não há mais entradas de manutenção
+                break
 
-        # Formatação do relatório em string
+        # Monta o relatório
         relatorio = f"""
-        *DATA:* {data}
-        *FAZENDA:* {fazenda}
-        *TALHÃO:* {talhao}
-        *TURNO:* {turno}
-        *STATUS:* {status}
-        *MÁQUINA:* {maquina}
-        *OPERADOR:* {operador}
-        *HORÍMETRO INICIAL:* {hinicial}
-        *HORÍMETRO FINAL:* {hfinal}
-        *HORAS TRABALHADAS:* {horas_trabalhadas}
-        *PRODUÇÃO HA:* {producao_ha}
-        *EQUIPE EM TRANSPORTE:* {equipe_transporte}
-        *DDS/CAFÉ:* {dds_cafe}
+        DATA: {data_formatada}
+        FAZENDA: {fazenda}
+        TALHÃO: {talhao}
+        TURNO: {turno}
+        STATUS: {status}
+        MÁQUINA: {maquina}
+        OPERADOR: {operador}
+        HORÍMETRO INICIAL: {hinicial}
+        HORÍMETRO FINAL: {hfinal}
+        HORAS TRABALHADAS: {horas_trabalhadas}
+        PRODUÇÃO HA: {producao_ha}
+        EQUIPE EM TRANSPORTE: {equipe_transporte}
+        DDS/CAFÉ: {dds_cafe}
         """
 
-        # Adiciona o bloco de inspeção diária ao relatório
         relatorio += "\nINSPEÇÃO DIÁRIA:\n"
         for i, m in enumerate(manutencoes):
             relatorio += f"""
@@ -72,10 +75,8 @@ def submit():
             - Tempo: {m['tempo']}
             """
 
-        # Finaliza o relatório com o transporte de prancha
         relatorio += f"\nEM TRANSPORTE DE PRANCHA: {transporte_pracha}\n"
 
-        # Envia o relatório para o template `report.html`
         return render_template('report.html', relatorio=relatorio)
 
 if __name__ == '__main__':
