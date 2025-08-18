@@ -32,48 +32,43 @@ def submit():
         # Captura múltiplas entradas de manutenção
         manutencoes = []
         index = 0
-        while True:
+        while f'manutencao_{index}' in request.form:
             manutencao = request.form.get(f'manutencao_{index}')
-            if manutencao:
-                hinicial_manutencao = request.form.get(f'manutencao_horimetro_inicial_{index}')
-                hfinal_manutencao = request.form.get(f'manutencao_horimetro_final_{index}')
-                tempo_manutencao = request.form.get(f'tempo_manutencao_{index}')
+            if manutencao:  # só adiciona se tiver valor
                 manutencoes.append({
                     "tipo": manutencao,
-                    "horario_inicial": hinicial_manutencao,
-                    "horario_final": hfinal_manutencao,
-                    "tempo": tempo_manutencao
+                    "horario_inicial": request.form.get(f'manutencao_horimetro_inicial_{index}'),
+                    "horario_final": request.form.get(f'manutencao_horimetro_final_{index}'),
+                    "tempo": request.form.get(f'tempo_manutencao_{index}')
                 })
-                index += 1
-            else:
-                break
+            index += 1
 
-        # Monta o relatório
-        relatorio = f"""
-        DATA: {data_formatada}
-        FAZENDA: {fazenda}
-        TALHÃO: {talhao}
-        TURNO: {turno}
-        STATUS: {status}
-        MÁQUINA: {maquina}
-        OPERADOR: {operador}
-        HORÍMETRO INICIAL: {hinicial}
-        HORÍMETRO FINAL: {hfinal}
-        HORAS TRABALHADAS: {horas_trabalhadas}
-        PRODUÇÃO HA: {producao_ha}
-        EQUIPE EM TRANSPORTE: {equipe_transporte}
-        DDS/CAFÉ: {dds_cafe}
-        """
+        # Monta o relatório com espaçamento correto
+        relatorio = (
+            f"DATA: {data_formatada}\n"
+            f"FAZENDA: {fazenda}\n"
+            f"TALHÃO: {talhao}\n"
+            f"TURNO: {turno}\n"
+            f"STATUS: {status}\n"
+            f"MÁQUINA: {maquina}\n"
+            f"OPERADOR: {operador}\n"
+            f"HORÍMETRO INICIAL: {hinicial}\n"
+            f"HORÍMETRO FINAL: {hfinal}\n"
+            f"HORAS TRABALHADAS: {horas_trabalhadas}\n"
+            f"PRODUÇÃO HA: {producao_ha}\n"
+            f"EQUIPE EM TRANSPORTE: {equipe_transporte}\n"
+            f"DDS/CAFÉ: {dds_cafe}\n"
+        )
 
         relatorio += "\nINSPEÇÃO DIÁRIA:\n"
         for i, m in enumerate(manutencoes):
-            relatorio += f"""
-            MANUTENÇÃO {i+1}:
-            - Tipo: {m['tipo']}
-            - Horário Inicial: {m['horario_inicial']}
-            - Horário Final: {m['horario_final']}
-            - Tempo: {m['tempo']}
-            """
+            relatorio += (
+                f"\nMANUTENÇÃO {i+1}:\n"
+                f"- Tipo: {m['tipo']}\n"
+                f"- Horário Inicial: {m['horario_inicial']}\n"
+                f"- Horário Final: {m['horario_final']}\n"
+                f"- Tempo: {m['tempo']}\n"
+            )
 
         relatorio += f"\nEM TRANSPORTE DE PRANCHA: {transporte_pracha}\n"
 
