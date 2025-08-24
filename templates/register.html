@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Registrar</h2>
+    <form method="POST">
+      <div>
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+
+      <div>
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <button type="submit">Criar Conta</button>
+    </form>
+    <p>Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+  </div>
+</body>
+</html>
