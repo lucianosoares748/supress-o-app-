@@ -45,32 +45,32 @@ def submit():
 
         # Monta o relatório com espaçamento correto
         relatorio = (
-            f"DATA: {data_formatada}\n"
-            f"FAZENDA: {fazenda}\n"
-            f"TALHÃO: {talhao}\n"
-            f"TURNO: {turno}\n"
-            f"STATUS: {status}\n"
-            f"MÁQUINA: {maquina}\n"
-            f"OPERADOR: {operador}\n"
-            f"HORÍMETRO INICIAL: {hinicial}\n"
-            f"HORÍMETRO FINAL: {hfinal}\n"
-            f"HORAS TRABALHADAS: {horas_trabalhadas}\n"
-            f"PRODUÇÃO HA: {producao_ha}\n"
-            f"EQUIPE EM TRANSPORTE: {equipe_transporte}\n"
+            f"Data: {data_formatada}\n"
+            f"Fazenda: {fazenda}\n"
+            f"Talhão: {talhao}\n"
+            f"Turno: {turno}\n"
+            f"Status: {status}\n"
+            f"Máquina: {maquina}\n"
+            f"Operador: {operador}\n"
+            f"Horímetro Inicial: {hinicial}\n"
+            f"Horímetro Final: {hfinal}\n"
+            f"Horas Trabalhadas: {horas_trabalhadas}\n"
+            f"Produção HA: {producao_ha}\n"
+            f"Equipe em Transporte: {equipe_transporte}\n"
             f"DDS/CAFÉ: {dds_cafe}\n"
         )
 
-        relatorio += "\nINSPEÇÃO DIÁRIA:\n"
+        relatorio += "\nInspensão diária:\n"
         for i, m in enumerate(manutencoes):
             relatorio += (
-                f"\nMANUTENÇÃO {i+1}:\n"
+                f"\nManutenção {i+1}:\n"
                 f"- Tipo: {m['tipo']}\n"
                 f"- Horário Inicial: {m['horario_inicial']}\n"
                 f"- Horário Final: {m['horario_final']}\n"
                 f"- Tempo: {m['tempo']}\n"
             )
 
-        relatorio += f"\nEM TRANSPORTE DE PRANCHA: {transporte_pracha}\n"
+        relatorio += f"\nEm Transporte Prancha: {transporte_pracha}\n"
 
         return render_template('report.html', relatorio=relatorio)
 
