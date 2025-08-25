@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Relatórios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📊 Meus Relatórios</h2>
+
+        {% if relatorios %}
+            <div class="table-container">
+                <table class="relatorios-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Fazenda</th>
+                            <th>Talhão</th>
+                            <th>Máquina</th>
+                            <th>Operador</th>
+                            <th>Horas Trabalhadas</th>
+                            <th>Produção (ha)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in relatorios %}
+                        <tr>
+                            <td>{{ r.data }}</td>
+                            <td>{{ r.fazenda }}</td>
+                            <td>{{ r.talhao }}</td>
+                            <td>{{ r.maquina }}</td>
+                            <td>{{ r.operador }}</td>
+                            <td>{{ r.horas_trabalhadas }}</td>
+                            <td>{{ r.producao_ha }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="sem-dados">Nenhum relatório encontrado.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{{ url_for('index') }}" class="btn-voltar">⬅ Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

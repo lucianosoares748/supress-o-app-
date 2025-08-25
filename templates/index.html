@@ -164,6 +164,8 @@
             </div>
           </div>
         </fieldset>
+
+
         
         
         
@@ -212,6 +214,20 @@
       </fieldset>
 
       <button type="submit">Enviar</button>
+
+
+      <!-- Botão para acessar relatórios -->
+        <div class="relatorios-btn">
+          <a href="{{ url_for('meus_relatorios') }}" class="btn-relatorios">📊 Ver Meus Relatórios</a>
+        </div>
+
+      <!-- Botão para acessar dashboard -->
+      <div class="dashboard-btn">
+        <a href="{{ url_for('dashboard') }}" class="btn-dashboard">📊 Acessar Dashboard</a>
+      </div>
+
+
+      
     </form>
   </div>
 

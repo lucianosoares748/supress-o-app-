@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Relatórios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>📊 Dashboard</h2>
+
+        {% if datas and horas %}
+        <div class="chart-container">
+            <canvas id="horasChart"></canvas>
+        </div>
+        {% else %}
+        <p>Nenhum relatório encontrado para gerar o gráfico.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{{ url_for('index') }}" class="btn-voltar">⬅ Voltar</a>
+        </div>
+    </div>
+
+    {% if datas and horas %}
+    <script>
+        const ctxHoras = document.getElementById('horasChart').getContext('2d');
+
+        new Chart(ctxHoras, {
+            type: 'line',
+            data: {
+                labels: {{ datas|tojson }},
+                datasets: [{
+                    label: 'Horas Trabalhadas',
+                    data: {{ horas|tojson }},
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "Horas"
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Data"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html>
