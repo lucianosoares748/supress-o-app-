@@ -1,0 +1,137 @@
+/* Container */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+table thead {
+    background: #007bff;
+    color: #fff;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+    background: #f1f1f1;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0056b3;
+
+}
+/* Estilo para o botão Voltar */
+.btn-voltar {
+    display: inline-block;
+    padding: 10px 18px;
+    margin-top: 20px;
+    background-color: #4CAF50; /* verde */
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #45a049; /* verde mais escuro */
+    transform: translateY(-2px);
+}
+
+.btn-voltar:active {
+    transform: translateY(0);
+}
+
+/* Estilização da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #0658f1;
+    font-weight: bold;
+}
+
+/* Container para tornar a tabela rolável em telas pequenas */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 4px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
+

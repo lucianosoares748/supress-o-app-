@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Relatórios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📑 Relatórios de Todos os Usuários</h2>
+
+        {% if relatorios %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Data</th>
+                        <th>Fazenda</th>
+                        <th>Talhão</th>
+                        <th>Máquina</th>
+                        <th>Operador</th>
+                        <th>Horas Trabalhadas</th>
+                        <th>Produção (ha)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in relatorios %}
+                    <tr>
+                        <td>{{ r.user.username }}</td>
+                        <td>{{ r.data }}</td>
+                        <td>{{ r.fazenda }}</td>
+                        <td>{{ r.talhao }}</td>
+                        <td>{{ r.maquina }}</td>
+                        <td>{{ r.operador }}</td>
+                        <td>{{ r.horas_trabalhadas }}</td>
+                        <td>{{ r.producao_ha }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhum relatório registrado ainda.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">⬅ Voltar</a>
+    </div>
+</body>
+</html>

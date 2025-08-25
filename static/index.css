@@ -78,6 +78,46 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Estilo para o botão Ver Meus Relatórios */
+.btn-relatorios {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 20px 0;
+    background-color: #2196F3; /* azul */
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-relatorios:hover {
+    background-color: #1976D2; /* azul mais escuro */
+    transform: translateY(-2px);
+}
+
+.btn-relatorios:active {
+    transform: translateY(0);
+}
+
+.btn-dashboard {
+    display: inline-block;
+    background-color: #007bff; /* azul */
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s;
+    font-weight: bold;
+}
+
+.btn-dashboard:hover {
+    background-color: #0056b3;
+}
+
+
+
 input[readonly] {
   background-color: #f9f9f9;
   cursor: not-allowed;
