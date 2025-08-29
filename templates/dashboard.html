@@ -16,11 +16,6 @@
             <canvas id="horasChart"></canvas>
         </div>
 
-        <!-- Gráfico de Manutenções -->
-        <div class="chart-container">
-            <canvas id="manutencaoChart"></canvas>
-        </div>
-
         <div class="actions">
             <a href="{{ url_for('index') }}" class="btn-voltar">⬅ Voltar</a>
         </div>
@@ -49,36 +44,6 @@
                 scales: {
                     y: { beginAtZero: true, title: { display: true, text: "Horas" } },
                     x: { title: { display: true, text: "Data" } }
-                }
-            }
-        });
-
-        // -------- Gráfico de Manutenções --------
-        const ctxManutencao = document.getElementById('manutencaoChart').getContext('2d');
-        new Chart(ctxManutencao, {
-            type: 'pie',
-            data: {
-                labels: {{ tipos_manutencao|tojson }},
-                datasets: [{
-                    label: 'Tempo de Manutenção',
-                    data: {{ tempos_manutencao|tojson }},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Distribuição do Tempo em Manutenções (%)' }
                 }
             }
         });

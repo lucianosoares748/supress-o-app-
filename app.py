@@ -84,36 +84,10 @@ def dashboard():
     except ValueError:
         horas = [0 for _ in relatorios]
 
-    # --- Gráfico de Manutenções (Pizza) ---
-    reports = Report.query.filter_by(user_id=current_user.id).all()
-    manutencao_totais = {}
-
-    for rep in reports:
-        try:
-            manutencoes = json.loads(rep.manutencoes) if rep.manutencoes else []
-        except:
-            manutencoes = []
-
-        for m in manutencoes:
-            tipo = m.get("tipo", "Outros")
-            tempo = m.get("tempo", 0)
-
-            try:
-                tempo = float(tempo)
-            except:
-                tempo = 0
-
-            manutencao_totais[tipo] = manutencao_totais.get(tipo, 0) + tempo
-
-    tipos_manutencao = list(manutencao_totais.keys())
-    tempos_manutencao = list(manutencao_totais.values())
-
     return render_template(
         "dashboard.html",
         datas=datas,
-        horas=horas,
-        tipos_manutencao=tipos_manutencao,
-        tempos_manutencao=tempos_manutencao
+        horas=horas
     )
 
 
